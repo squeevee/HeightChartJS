@@ -6,7 +6,7 @@ This is a simple tool for creating a chart comparing the heights of multiple cha
 
 Download this project as a .zip file, and unpack it on your computer. Open "index.html" in a web browser to open the chart. Click the gray rectangle in the top-left corner to show options for showing and hiding characters.
 
-To set up your own characters, you will neet to use a text editor (for example the free Notepad++) to open "index.html" and edit the source code for that file. You should see a few blocks that look like:
+To set up your own characters, you will need to use a text editor (for example the free Notepad++) to open "index.html" and edit the source code for that file. You should see a few blocks that look like:
 
 ```html
 
@@ -55,4 +55,6 @@ The free program GIMP can be used to add transparency, resize, and measure pixel
 
 The file "jquery-3.5.1.slim.min.js" is a release of jQuery, copyright JS Foundation and other contributors, https://js.foundation/ . It is distributed under the terms of the MIT License.
 
-The files "sample1.png", "sample2.png", and "sample3.png" are courtesy of the Openclipart project https://openclipart.org/, and are distributed under the terms of the CC0 License.
+The file "sample1.png" is courtesy of the OpenGameArt project https://opengameart.org/content/cat-3d-pixel-art , and is distributed under the terms of the CC0 License.
+
+The files "sample2.png", and "sample3.png" are courtesy of the Openclipart project https://openclipart.org/, and are distributed under the terms of the CC0 License.
