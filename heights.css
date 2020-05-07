@@ -1,0 +1,159 @@
+/*
+ * Copyright 2020 Eleanor Hawk
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy 
+ * of this software and associated documentation files (the "Software"), to deal 
+ * in the Software without restriction, including without limitation the rights 
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
+ * copies of the Software, and to permit persons to whom the Software is 
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in 
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
+ * SOFTWARE.
+ */
+
+html {
+    background-color: #3d3d43;
+    font-family: 'sans-serif'
+}
+
+body { margin: 0 ; }
+
+img[data-model-id]
+{
+    display: none;
+    
+}
+
+#clicker-showButton {
+    display: block;
+    position: fixed;
+    cursor: pointer;
+    left: 0;
+    top: 0;
+    
+    background-color: rgba(237, 222, 237, 50%);
+    padding: 6px;
+    
+    font-size: 67%;
+    
+    z-index: 1000;
+}
+
+#clicker-showButton:hover {
+    background-color: rgba(237, 222, 237, 75%);
+}
+
+#clicker-showButton:active {
+    background-color: rgba(237, 222, 237, 100%);
+}
+
+#clicker {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 160px;
+    height: 100%;
+    overflow: auto;
+    
+    background-color: rgba(237, 222, 237, 50%);
+    padding: 6px;
+    
+    z-index: 1000;
+}
+
+#clicker #hideButton {
+    cursor: pointer;
+    background-color: rgba(237, 222, 237, 50%);
+    padding: 6px;
+    text-align: center;
+    
+    font-size: 67%;
+}
+
+#clicker #hideButton:hover {
+    background-color: rgba(237, 222, 237, 75%);
+}
+
+#clicker-showButton:active {
+    background-color: rgba(237, 222, 237, 100%);
+}
+
+#heightChart {
+    padding-top: 100px;
+    margin-bottom: 100px;
+    margin-left: auto;
+    margin-right: auto;
+        
+    position: relative;
+    
+    background-color: rgba(237, 222, 237, 25%);
+}
+
+#heightChart img {
+    position: absolute;
+}
+
+#heightChart #baseline {
+    position: absolute;
+    
+    height: 10px;
+    width: 100%;
+    bottom: -10px;
+    
+    background-color: #2a2226;
+    
+    z-index: -1000;
+}
+
+#heightChart #metricRuler {
+    position: absolute;
+    
+    height: 100%;
+    width: 20px;
+    
+    left: 0;
+    bottom: 0;
+
+    background-image: url("metricruler.png");
+    background-position: bottom;
+    background-repeat: repeat;
+    
+    z-index: 999;
+}
+
+#heightChart #imperialRuler {
+    position: absolute;
+    
+    height: 100%;
+    width: 20px;
+    
+    left: 20px;
+    bottom: 0;
+
+    background-image: url("imperialruler.png");
+    background-position: bottom;
+    background-repeat: repeat;
+    
+    z-index: 999;
+}
+
+#heightChart .rule {
+    position: absolute;
+    width: 100%;
+    height: 0;
+    
+    border-width: 4px;
+    border-bottom-color: rgba(153, 51, 102, 25%);
+    border-bottom-style: solid;
+    
+    z-index: 999;
+}
