@@ -20,10 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-pixelsPerMeter = 200;
-horizontalPadding = 50;
+const pixelsPerMeter = 200;
+const horizontalPadding = 50;
 
-heightChart = {
+const heightChart = {
     height: 0,
     
     pxHeight: 0,
@@ -109,7 +109,7 @@ heightChart = {
     }
 };
 
-getModels = function() {
+const getModels = () => {
     let models = {};
     
     $('img[data-model-id]').each((i, e) => {
@@ -117,7 +117,7 @@ getModels = function() {
         const name = $(e).attr('data-model-name');
         const height = Number($(e).attr('data-model-height'));
         
-        const shown = $(e).attr('data-model-show') === 'true';
+        const show = $(e).attr('data-model-show') === 'true';
         
         const pxHeight = $(e).height();
         const pxWidth = $(e).width();
@@ -147,7 +147,7 @@ getModels = function() {
             name: name,
             height: height,
             
-            shown: shown,
+            show: show,
             
             boxTop: boxTop,
             boxHeight: boxBottom - boxTop,
@@ -166,7 +166,11 @@ getModels = function() {
     return models;
 };
 
-clicker = {    
+const sorter_byName = (a, b) => { return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1; };
+const sorter_shortToTall = (a, b) => { return a.height - b.height; };
+const sorter_tallToShort = (a, b) => { return b.height - a.height; };
+
+const clicker = {    
     show: function() {
         $(clicker.showButton).hide();
         $(clicker.element).show();
@@ -212,6 +216,26 @@ window.addEventListener('load', () => {
     hideButton.onclick = clicker.hide;
     $(clicker.element).append(hideButton);
     
+    $(clicker.element).append('</br>');
+    
+    let showRulesCheckbox = document.createElement('input');
+    showRulesCheckbox.setAttribute('type', 'checkbox');
+    showRulesCheckbox.setAttribute('id', 'show-rules-checkbox');
+    showRulesCheckbox.checked = true;
+    showRulesCheckbox.onchange = (e) => {
+        if (e.target.checked) {
+            $(heightChart.element).removeClass('hideRules');
+        } else {
+            $(heightChart.element).addClass('hideRules');
+        }
+    };
+    $(clicker.element).append(showRulesCheckbox);
+    
+    let showRulesLabel = document.createElement('label');
+    showRulesLabel.setAttribute('for', 'show-rules-checkbox');
+    showRulesLabel.innerText = 'Show rules';
+    $(clicker.element).append(showRulesLabel);
+    
     let inputList = document.createElement('ls');
     $(clicker.element).append(inputList);
         
@@ -222,9 +246,15 @@ window.addEventListener('load', () => {
         modelList.push(model);
     }
     
-    modelList.sort((a, b) => { 
-        return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
-    });
+    let modelList_tallToShort = modelList.slice(0);
+    modelList_tallToShort.sort(sorter_tallToShort);
+    zIndex = 0;
+    for (const model of modelList_tallToShort) {
+        model.element.style.zIndex = zIndex;
+        zIndex++;
+    }
+    
+    modelList.sort(sorter_byName);
     
     for (const model of modelList) {
         let li = document.createElement('li');
@@ -239,7 +269,7 @@ window.addEventListener('load', () => {
                 heightChart.hide(model);
         };
         
-        if (model.shown) {
+        if (model.show) {
             heightChart.shown[model.id] = model;
             showInput.checked = true;
         }
@@ -253,6 +283,10 @@ window.addEventListener('load', () => {
         $(li).append(label);
         
         $(inputList).append(li);
+    }
+    
+    if (heightChart.shown.length === 0) {
+        clicker.show();
     }
     
     let showAllButton = document.createElement('input');
@@ -281,12 +315,21 @@ window.addEventListener('load', () => {
     
     heightChart.update();
     
-    modelList_shortToTall = modelList.slice(0);
-    modelList_shortToTall.sort((a, b) => { return b.height - a.height });
-    zIndex = 0;
-    for (const model of modelList_shortToTall) {
-        model.element.style.zIndex = zIndex;
-        zIndex++;
-    }
+    let sortShortToTallButton = document.createElement('input');
+    sortShortToTallButton.setAttribute('type', 'button');
+    sortShortToTallButton.setAttribute('value', 'Sort: Short to Tall');
+    sortShortToTallButton.onclick = () => {
+        heightChart.shown.sort(sorter_shortToTall);
+        heightChart.update();
+    };
+    $(clicker.element).append(sortShortToTallButton);
     
+    let sortTallToShortButton = document.createElement('input');
+    sortTallToShortButton.setAttribute('type', 'button');
+    sortTallToShortButton.setAttribute('value', 'Sort: Tall to Short');
+    sortTallToShortButton.onclick = () => {
+        heightChart.shown.sort(sorter_tallToShort);
+        heightChart.update();
+    };
+    $(clicker.element).append(sortTallToShortButton);
 });
